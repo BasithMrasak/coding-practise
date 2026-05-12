@@ -1,0 +1,23 @@
+def smallest_subarray(nums,s):
+  window_sum=0
+  min_length=float('inf')
+  left=0
+  for right in range(len(nums)):
+    window_sum+=nums[right]
+
+    while window_sum>=s:
+      curr_window_length=right-left+1
+
+      min_length=min(min_length,curr_window_length)
+
+      window_sum-=nums[left]
+      left+=1
+
+  return min_length if min_length!=float('inf') else 0
+
+
+
+
+nums=[2, 1, 5, 2, 8]
+s=7
+print(smallest_subarray(nums,s))
