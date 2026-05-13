@@ -1,0 +1,40 @@
+#Given a string, find the length of the longest substring in it with no more than K distinct characters.
+
+#You can assume that K is less than or equal to the length of the given string.
+
+#For better understanding: We need to find the longest subarray, which contain only k distinct characters in it. 
+#Which means that we can have only k distinct characters. but that characters can occur any number of times in the subarray
+#Input String: araaci , K: 2
+#Output:4
+
+def long_substring_kdistinct(string,k):
+  max_length=0
+  left=0
+  hashmap={}
+  for right in range(0,len(string)):
+     char=string[right]
+    #hashmap[char]=hashmap.get(char,0)+1 #if the element is not in the hashmap, we cannot simply increment +1. 
+    #So if the element is coming first time, default 0 will be added to hashmap. another way of doing it below
+     if char in hashmap:
+      hashmap[char]+=1
+     else:
+      hashmap[char]=1
+
+     while len(hashmap)>k:
+       left_char=string[left]
+       hashmap[left_char]-=1
+
+       if hashmap[left_char]==0:
+          del hashmap[left_char]
+       left+=1
+
+     max_length=max(max_length,right-left+1)
+
+  return max_length
+
+
+
+
+string="araaci"
+k=2
+print(long_substring_kdistinct(string,k))
